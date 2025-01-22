@@ -21,7 +21,8 @@ module.exports = {
     plugins: [
         new Visualizer({
             filename: path.join('..', 'stats', 'statistics.html'),
-            throwOnError: true
+            throwOnError: true,
+            chunkModules: true
         }),
     ],
 }

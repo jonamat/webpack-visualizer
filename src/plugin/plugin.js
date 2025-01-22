@@ -10,6 +10,7 @@ module.exports = class VisualizerPlugin {
         this.opts = {
             filename: 'stats.html',
             throwOnError: true,
+            chunkModules: true,
             ...opts,
         };
     }
@@ -19,7 +20,7 @@ module.exports = class VisualizerPlugin {
             let html;
 
             try {
-                let stats = compilation.getStats().toJson({ chunkModules: true });
+                let stats = compilation.getStats().toJson({ chunkModules: this.opts.chunkModules });
                 let stringifiedStats = JSON.stringify(stats).replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
                 html = `
