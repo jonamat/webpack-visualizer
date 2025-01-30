@@ -6,11 +6,15 @@ let cssString = fs.readFileSync(path.join(__dirname, './style.css'), 'utf8');
 let jsString = fs.readFileSync(path.join(__dirname, './main.js'), 'utf8');
 
 module.exports = class VisualizerPlugin {
-    constructor(opts = {}) {
+    constructor(opts = {}, statOpts = {}) {
         this.opts = {
             filename: 'stats.html',
             throwOnError: true,
             ...opts,
+        };
+        this.statOpts = {
+            chunkModules: true,
+            ...statOpts,
         };
     }
 
@@ -19,7 +23,7 @@ module.exports = class VisualizerPlugin {
             let html;
 
             try {
-                let stats = compilation.getStats().toJson({ chunkModules: true });
+                let stats = compilation.getStats().toJson(this.statOpts);
                 let stringifiedStats = JSON.stringify(stats).replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
                 html = `

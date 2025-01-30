@@ -19,9 +19,13 @@ const Visualizer = require('webpack-visualizer-plugin2');
 
 module.exports = {
     plugins: [
-        new Visualizer({
+        new Visualizer(
+        {
             filename: path.join('..', 'stats', 'statistics.html'),
-            throwOnError: true
+            throwOnError: true,
+        },
+        {
+            chunkModules: true
         }),
     ],
 }
